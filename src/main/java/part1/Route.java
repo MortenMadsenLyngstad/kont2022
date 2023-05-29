@@ -1,7 +1,9 @@
 package part1;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Represents a certain order of post that must be visited.
@@ -10,15 +12,19 @@ import java.util.Iterator;
  */
 public class Route implements Iterable<Post> {
 
-	// TODO: necessary fields and initialisation
-
+	private List<Post> route = new ArrayList<>();
 	/**
 	 * Initializes this route with the provided posts.
 	 *
 	 * @param posts the posts in-order
 	 */
 	public Route(final Iterator<Post> posts) {
-		// TODO: initialisation
+		while (posts.hasNext()) {
+			this.route.add(posts.next());
+		}
+		if (route.size() < 2) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/**
@@ -27,7 +33,12 @@ public class Route implements Iterable<Post> {
 	 * @param posts the posts in-order
 	 */
 	public Route(final Iterable<Post> posts) {
-		// TODO: initialisation
+		for (Post post : posts) {
+			route.add(post);
+		}
+		if (route.size() < 2) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/**
@@ -36,7 +47,31 @@ public class Route implements Iterable<Post> {
 	 * @param posts the posts in-order
 	 */
 	public Route(final Collection<Post> posts) {
-		// TODO: initialisation
+		route.addAll(posts);
+		if (route.size() < 2) {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	private Post getRoutePost(int num) {
+		return this.route.get(num);
+	}
+
+	private List<Leg> convertToLegs() {
+		List<Leg> legs = new ArrayList<>();
+		for (int i = 0; i < route.size(); i++) {
+			if (i == route.size() -1) {
+				break;
+			}
+			Leg newLeg = new Leg(getRoutePost(i), getRoutePost(i+1));
+			legs.add(newLeg);
+		}
+		return legs;
+	}
+
+	@Override
+	public String toString() {
+		return "Route [route=" + route + "]";
 	}
 
 	/**
@@ -45,8 +80,8 @@ public class Route implements Iterable<Post> {
 	 * @return the number of legs
 	 */
 	public int getLegCount() {
-		// TODO
-		return 0;
+		final int legCount = convertToLegs().size();
+		return legCount;
 	}
 
 	/**
@@ -56,8 +91,11 @@ public class Route implements Iterable<Post> {
 	 * @return the leg with the specified number
 	 */
 	public Leg getLeg(final int num) {
-		// TODO
-		return null;
+		List<Leg> legs = convertToLegs();
+		if (num < 0 || num > legs.size()) {
+			throw new IllegalArgumentException();
+		}
+		return convertToLegs().get(num);
 	}
 
 	/**
@@ -65,8 +103,7 @@ public class Route implements Iterable<Post> {
 	 */
 	@Override
 	public Iterator<Post> iterator() {
-		// TODO
-		return null;
+		return route.iterator();
 	}
 
 	/**
@@ -75,8 +112,7 @@ public class Route implements Iterable<Post> {
 	 * @return the total distance of this route
 	 */
 	public double distance() {
-		// TODO
-		return 0.0;
+		return convertToLegs().stream().mapToDouble(l -> l.distance()).sum();
 	}
 
 	//
@@ -88,8 +124,7 @@ public class Route implements Iterable<Post> {
 	 * @return the total distance of this sequence of posts
 	 */
 	public static double distance(final Iterable<Post> posts) {
-		// TODO
-		return 0.0;
+		return distance(posts.iterator());
 	}
 
 	/**
@@ -99,7 +134,14 @@ public class Route implements Iterable<Post> {
 	 * @return the total distance of this sequence of posts
 	 */
 	public static double distance(final Iterator<Post> posts) {
-		// TODO
-		return 0.0;
+		double sum = 0;
+		while (posts.hasNext()) {
+			if (!posts.hasNext()) {
+				break;
+			}
+			Post currentPost = posts.next();
+			sum += currentPost.distance(posts.next());
+		}
+		return sum;
 	}
 }

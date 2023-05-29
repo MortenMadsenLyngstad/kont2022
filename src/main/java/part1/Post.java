@@ -5,7 +5,9 @@ package part1;
  */
 public class Post {
 
-	// TODO: necessary fields and initialisation
+	private double east;
+	private double north;
+	private int postNum = -1;
 
 	/**
 	 * Initializes this post with the provided positions.
@@ -15,7 +17,8 @@ public class Post {
 	 * @param north the distance in north direction from a reference point
 	 */
 	public Post(final double east, final double north) {
-		// TODO: initialisation
+		this.east = east;
+		this.north = north;
 	}
 
 	/**
@@ -24,11 +27,17 @@ public class Post {
 	 */
 	@Override
 	public String toString() {
-		// TODO: return a suitable String
-		return "";
+		String out = "";
+		if (postNum != -1) {
+			out += Integer.toString(postNum) + ", " + Double.toString(east) + ", " + Double.toString(north) + ".";
+			return out;
+		}
+		out += Double.toString(east);
+		out += ", ";
+		out += Double.toString(north);
+		out += ".";
+		return out;
 	}
-
-	// TODO: methods including getters og setters, that you find necessary and useful
 
 	/**
 	 * Assigns the post number, which can only be done once.
@@ -37,24 +46,22 @@ public class Post {
 	 * @throws IllegalArgumentException if the argument isn't greater than or equal to 0
 	 * @throws IllegalStateException if the post number is already set
 	 */
-	public void setPostNum(final int postNum) {
-		// TODO: correkt behaviour
+	final public void setPostNum(final int postNum) {
+		this.postNum = postNum;
 	}
 
 	/**
 	 * @return the east coordinate of this Post
 	 */
 	public double getEast() {
-		// TODO - return correct value
-		return 0.0;
+		return this.east;
 	}
 
 	/**
 	 * @return the north coordinate of this Post
 	 */
 	public double getNorth() {
-		// TODO - return correct value
-		return 0.0;
+		return this.north;
 	}
 
 	/**
@@ -79,10 +86,9 @@ public class Post {
 	 * @return the distance between the post and the point
 	 */
 	public double distance(final double east, final double north) {
-		// TODO: return correct value
-		return 0.0;
+		return distance(this.east, this.north, east, north);
 	}
-
+	
 	/**
 	 * Computes the distance between this post and another one
 	 *
@@ -90,8 +96,12 @@ public class Post {
 	 * @return the distance between this and another post
 	 */
 	public double distance(final Post post2) {
-		// TODO: return correct value
-		return 0.0;
+		return distance(this.east, this.north, post2.east, post2.north);
+		
+	}
+
+	public int getPostNum() {
+		return postNum;
 	}
 
 	/**
@@ -103,8 +113,7 @@ public class Post {
 	 * @return the distance between the post and the point
 	 */
 	public static double distance(final Post post, final double east, final double north) {
-		// TODO: return correct value
-		return 0.0;
+		return distance(post.east, post.north, east, north);
 	}
 
 	/**
@@ -115,8 +124,7 @@ public class Post {
 	 * @return the distance between the two posts
 	 */
 	public static double distance(final Post post1, final Post post2) {
-		// TODO: return correct value
-		return 0.0;
+		return distance(post1.east, post1.north, post2.east, post2.north);
 	}
 
 	// sample main-method, for testing

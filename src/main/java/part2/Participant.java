@@ -1,12 +1,14 @@
 package part2;
 
+import part1.Route;
+
 /**
  * Represents a race participant running a certain route
  * through the race's posts.
  */
 public class Participant {
 
-	// TODO: necessary fields and initialisation
+	private final String name;
 
 	/**
 	 * Initializes this participant with the provided name.
@@ -14,8 +16,25 @@ public class Participant {
 	 * @param name
 	 */
 	public Participant(final String name) {
-		// TODO: initialisation
+		this.name = name;
 	}
 
-	// TODO: methods including getters og setters, that you find necessary and useful
+	@Override
+	public String toString() {
+		return "[Participant %s]".formatted(getName());
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	private Route route;
+
+	Route getRoute() {
+		return route;
+	}
+
+	void setRoute(final Route route) {
+		this.route = route;
+	}
 }

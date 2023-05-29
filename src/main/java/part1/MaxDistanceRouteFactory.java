@@ -29,8 +29,14 @@ public class MaxDistanceRouteFactory implements RouteFactory {
 	 */
 	@Override
 	public Route createRoute(final Post start, final List<Post> posts, final Post finish) {
-		// TODO: change/complete the code
 		final List<Post> routePosts = new ArrayList<>();
-		return new Route(routePosts);
+		routePosts.add(start);
+		routePosts.addAll(posts);
+		routePosts.add(finish);
+		Route route = new Route(routePosts);
+		if (route.distance() > maxDistance) {
+			throw new IllegalArgumentException();
+		}
+		return route;
 	}
 }

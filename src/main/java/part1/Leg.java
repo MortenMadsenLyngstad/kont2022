@@ -5,8 +5,8 @@ package part1;
  * One of them can be the starting or ending post of the race.
  */
 public class Leg {
-	// test
-	// TODO: necessary fields and initialisation
+	private Post startPost;
+	private Post endPost;
 
 	/**
 	 * Initializes this Leg with the provided start and end post.
@@ -15,7 +15,8 @@ public class Leg {
 	 * @param endPost the ending post
 	 */
 	public Leg(final Post startPost, final Post endPost) {
-		// TODO: initialization
+		this.startPost = startPost;
+		this.endPost = endPost;
 	}
 
 	/**
@@ -24,27 +25,31 @@ public class Leg {
 	 */
 	@Override
 	public String toString() {
-		// TODO: return a suitable String
-		return "";
+		String out = "Startpost: " + startPost.getPostNum() + ". Endpost: " + endPost.getPostNum() + distance();
+		return out;
 	}
 
 	/**
 	 * @return the starting Post of this leg
 	 */
 	public Post getStartPost() {
-		// TODO
-		return null;
+		return this.startPost;
 	}
 
 	/**
 	 * @return the end post of this leg
 	 */
 	public Post getEndPost() {
-		// TODO
-		return null;
+		return this.endPost;
 	}
 
-	// TODO: methods including getters og setters, that you find necessary and useful
+	public void setStartPost(Post startPost) {
+		this.startPost = startPost;
+	}
+
+	public void setEndPost(Post endPost) {
+		this.endPost = endPost;
+	}
 
 	/**
 	 * Computes the distance between the start and end posts.
@@ -52,7 +57,6 @@ public class Leg {
 	 * @return the distance between the start and end posts
 	 */
 	public double distance() {
-		// TODO: return correct value
-		return 0.0;
+		return startPost.distance(endPost);
 	}
 }

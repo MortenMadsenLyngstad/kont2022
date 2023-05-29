@@ -1,5 +1,7 @@
 package part1;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,16 +52,27 @@ public interface RouteFactory {
 	 * start -> all posts in the between list in order -> finish
 	 */
 	public final static RouteFactory ALL_POSTS_IN_ORDER = (start, between, finish) -> {
-		// TODO
-		return null;
+		List<Post> posts = new ArrayList<>(between);
+		posts.add(0, start);
+		posts.add(finish);
+		return new Route(posts);
 	};
 
 	/**
 	 * Generates a route that visits all the posts provided in the order of 
 	 * start -> all posts in the between list in reverse order -> finish
 	 */
-	// TODO
-	public final static RouteFactory ALL_POSTS_REVERSED = null;
+	public final static RouteFactory ALL_POSTS_REVERSED = (start, between, finish) -> {
+		List<Post> betweenReversed = new ArrayList<>(between);
+		Collections.reverse(betweenReversed);
+		List<Post> posts = new ArrayList<>(betweenReversed);
+		posts.add(0, start);
+		posts.add(finish);
+
+		return new Route(posts);
+	};
+
+	
 
 	// for own testing
 	public static void main(final String[] args) {
