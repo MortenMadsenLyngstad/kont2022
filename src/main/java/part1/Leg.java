@@ -5,7 +5,7 @@ package part1;
  * One of them can be the starting or ending post of the race.
  */
 public class Leg {
-
+	// test
 	// TODO: necessary fields and initialisation
 
 	/**
